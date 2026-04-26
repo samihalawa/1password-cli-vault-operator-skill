@@ -1,0 +1,3 @@
+name: 1password-cli-vault-operator-skill
+version: 1.0.0
+description: Non-interactive 1Password CLI vault operations using OP_SERVICE_ACCOUNT_TOKEN from ~/.env.
