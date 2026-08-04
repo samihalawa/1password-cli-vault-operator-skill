@@ -1,6 +1,6 @@
 ---
 name: 1password-cli-vault-operator-skill
-description: Use 1Password CLI fast and non-interactively through OP_SERVICE_ACCOUNT_TOKEN for vault/item search, read, test, create, update, consolidation, and archive tasks.
+description: Use 1Password CLI fast and non-interactively through OP_SERVICE_ACCOUNT_TOKEN for vault/item search, read, test, create, update, consolidation, archive, and safe provider API credential fallback when a UI is signed out or a shell token is absent.
 ---
 
 # 1Password CLI Vault Operator
@@ -37,6 +37,22 @@ Use this when the user asks to work with 1Password from the terminal and wants n
    op item edit "$ITEM_ID" --vault "$OP_VAULT" notesPlain="$(cat notes.md)"
    ```
 
+## Provider Audit Fallback
+
+When a provider UI is signed out or a shell credential is absent:
+
+1. search item metadata by title/category without revealing fields;
+2. inspect field labels and types, not field values;
+3. reveal only the required field into a short-lived scoped shell variable and
+   pass it directly to the provider command without `echo` or a disk file;
+4. test a read-only identity, project-list, or resource-list endpoint first;
+5. record only the resource identity and whether the credential worked.
+
+This is a valid recovery path for providers such as Coolify and PostHog. For a
+PostHog project audit, compare the provider-returned public `api_token` with the
+deployed source token without printing either value. A logged-out UI alone is
+not proof that the provider is inaccessible.
+
 ## Safety
 
 - Never print full secrets in the final response.
@@ -44,6 +60,12 @@ Use this when the user asks to work with 1Password from the terminal and wants n
 - Preserve source item title, source item ID, field label, usage context, and test status when consolidating.
 - Archive only after the canonical target has been read back and verified.
 - Keep distinct human/service identities separate even if they share a domain.
+- Avoid broad item JSON in logs. Prefer item titles, IDs, categories, and field
+  labels until the one required secret is consumed directly by its command.
+- Do not use verbose process listings, environment-dumping process flags, or
+  full command-line inspection around credential-bearing tools. Process argv
+  and MCP launch arguments can contain secrets. When process proof is needed,
+  read only the PID, executable basename, and working directory.
 
 ## Final Format
 

@@ -1,3 +1,4 @@
-name: 1password-cli-vault-operator-skill
-version: 1.0.0
-description: Non-interactive 1Password CLI vault operations using OP_SERVICE_ACCOUNT_TOKEN from ~/.env.
+interface:
+  display_name: "1Password Vault Operator"
+  short_description: "Use 1Password safely for vault work and provider credential fallback"
+  default_prompt: "Use $1password-cli-vault-operator-skill to perform the requested vault or provider-credential operation non-interactively. Never print or persist secret values, and validate credentials only through low-risk read-only provider endpoints."
