@@ -76,3 +76,9 @@ Report:
 - credential test status with prefixes only
 - canonical item title and ID
 - exact blockers, if any
+
+## Execute and verify the workflow
+
+When a user authorizes an operation, carry it out through the native provider or executable workflow and verify the resulting state. A vault entry, guide, checklist, or task record is not proof that authentication, Autofill, signing, or submission worked. Use 1Password for actual credentials and their Autofill metadata. Keep reusable execution instructions in the owning skill or agent, and do not create a Secure Note as a substitute for executing the task.
+
+For Autofill, keep the exact account on one Login item with the provider URL and native username/password fields. For multi-field forms, capture missing form fields on that existing item using the supported extension workflow, then verify from a fresh form that the suggestion reaches the signed-in provider. Keep signing keys, encryption secrets, and unrelated authentication methods in their appropriate existing records. Verify a deduplication with the native CLI's archive-inclusive item list and explicit ARCHIVED state; an exact-ID get can still resolve an archived item.

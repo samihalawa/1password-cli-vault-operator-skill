@@ -1,4 +1,4 @@
 interface:
   display_name: "1Password Vault Operator"
   short_description: "Use 1Password safely for vault work and provider credential fallback"
-  default_prompt: "Use $1password-cli-vault-operator-skill to perform the requested vault or provider-credential operation non-interactively. Never print or persist secret values, and validate credentials only through low-risk read-only provider endpoints."
+  default_prompt: "Use $1password-cli-vault-operator-skill to perform the requested vault or provider-credential operation non-interactively. Never print or persist secret values, and validate credentials only through low-risk read-only provider endpoints. Complete the requested operation through the native provider and verify its result."
